@@ -1,2 +1,0 @@
-C:\MinGW\bin\ar.exe qc libgyok.a  CMakeFiles/gyok.dir/src/gyok/gyok.c.obj
-C:\MinGW\bin\ranlib.exe libgyok.a
