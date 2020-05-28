@@ -1,0 +1,12 @@
+[
+{
+  "directory": "D:/Egyetem_MI/2_felev/TG_progalap/projekt/build/gyok",
+  "command": "C:\\MinGW\\bin\\gcc.exe  @CMakeFiles/gyok.dir/includes_C.rsp -g   -o CMakeFiles\\gyok.dir\\src\\gyok\\gyok.c.obj   -c D:\\Egyetem_MI\\2_felev\\TG_progalap\\projekt\\gyok\\src\\gyok\\gyok.c",
+  "file": "D:/Egyetem_MI/2_felev/TG_progalap/projekt/gyok/src/gyok/gyok.c"
+},
+{
+  "directory": "D:/Egyetem_MI/2_felev/TG_progalap/projekt/build/sakk-exe",
+  "command": "C:\\MinGW\\bin\\gcc.exe  @CMakeFiles/sakk.dir/includes_C.rsp -g   -o CMakeFiles\\sakk.dir\\asd.c.obj   -c D:\\Egyetem_MI\\2_felev\\TG_progalap\\projekt\\sakk-exe\\asd.c",
+  "file": "D:/Egyetem_MI/2_felev/TG_progalap/projekt/sakk-exe/asd.c"
+}
+]

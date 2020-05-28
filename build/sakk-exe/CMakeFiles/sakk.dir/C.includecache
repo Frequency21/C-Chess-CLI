@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../gyok/src/gyok/gyok.h
+
+D:/Egyetem_MI/2_felev/TG_progalap/projekt/sakk-exe/asd.c
+stdlib.h
+-
+stdio.h
+-
+math.h
+-
+gyok/gyok.h
+-
+
