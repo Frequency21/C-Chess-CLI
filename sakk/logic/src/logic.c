@@ -1,9 +1,6 @@
 #include<stdlib.h>
 #include"logic.h"
 
-// enum figures {EMPTY, B_KING = 0x2654, B_QUEEN, B_ROOK, B_BISHOP, B_KNIGHT,
-//               B_PAWN, W_KING, W_QUEEN, W_ROOK, W_BISHOP, W_KNIGHT, W_PAWN};
-
 void init_table () {
     table = (int**) malloc (sizeof(int*)*8);
     for (int i = 0; i < 8; i++)
@@ -30,4 +27,10 @@ void init_table () {
             table[i][j] = figure;
         }
     }
+}
+
+void destroy_table () {
+    for (int i = 0; i < 8; i++)
+        free(table[i]);
+    free(table);
 }

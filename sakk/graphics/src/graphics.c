@@ -12,10 +12,26 @@ void print_figures (double num) {
 }
 
 void print_table () {
+  int spaces = 4;
+  wprintf(L"%*c", spaces, ' ');
+  for (int i = 1; i < 9; i++)
+    wprintf(L" %d", i);
+  wprintf(L"\n%*c", spaces, ' ');
+  for (int i = 0; i < 17; i++)
+    wprintf(L"_");
+  wprintf(L"\n");
   for (int i = 7; i >= 0; i--) {
+    wprintf(L"%-*c|", spaces, 'a' + i);
     for (int j = 0; j < 8; j++) {
-      wprintf(L"%lc ", table[i][j]);
-    } wprintf(L"\n");
+      if (j < 7)
+        wprintf(L"%lc ", table[i][j]);
+      else
+        wprintf(L"%lc", table[i][j]);
+    } wprintf(L"|");
+    wprintf(L"\n");
   }
-  
+  wprintf(L"%*c", spaces, ' ');
+  for (int i = 0; i < 17; i++)
+    wprintf(L"%lc", 0x203E);
+  wprintf(L"\n");
 }

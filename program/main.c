@@ -14,5 +14,7 @@ int main(int argc, char const *argv[])
     // wprintf(L"\n");
     init_table();
     print_table();
+
+    destroy_table();
     return 0;
 }
