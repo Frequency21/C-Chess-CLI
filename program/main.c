@@ -9,9 +9,6 @@ int main(int argc, char const *argv[])
 {
     setlocale(LC_CTYPE, "");
     system("clear");
-    // wprintf(L"asd\n");
-    // print_figures();
-    // wprintf(L"\n");
     init_table();
     print_table();
 

@@ -1,5 +1,8 @@
 #include<stdlib.h>
+#include<stdbool.h>
 #include"logic.h"
+
+bool white_move;
 
 void init_table () {
     table = (int**) malloc (sizeof(int*)*8);
@@ -27,6 +30,7 @@ void init_table () {
             table[i][j] = figure;
         }
     }
+    white_move = true;
 }
 
 void destroy_table () {
