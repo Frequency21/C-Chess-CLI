@@ -1,6 +1,8 @@
 #include<stdlib.h>
 #include<stdbool.h>
+#include<string.h>
 #include"logic.h"
+#include"../stack/src/stack.h"
 
 bool white_move;
 
@@ -20,7 +22,7 @@ void init_table () {
             table[7][7 - coordinates[i]] = figure;
     }
     for (int i = 1, figure; i < 7; i++) {
-        int figure = EMPTY;
+        int figure = EMPTY_SQUARE;
         if (i == 1)
             figure = W_PAWN;
         else if (i == 6)
@@ -31,6 +33,16 @@ void init_table () {
         }
     }
     white_move = true;
+}
+
+int move (char * cmd, int length) {
+    char resign[] = "resign";
+    char copy[length];
+    memcpy(copy, cmd, length);
+    if (memcmp(cmd, resign, 6) == 0)
+        return 0;
+    white_move = !white_move;
+    return 1;
 }
 
 void destroy_table () {

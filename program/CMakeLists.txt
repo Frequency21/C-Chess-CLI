@@ -1,3 +1,3 @@
-add_executable(sakk main.c)
+add_executable(sakk-exe main.c)
 
-target_link_libraries(sakk PRIVATE sakkLib)
+target_link_libraries(sakk-exe PRIVATE sakk)
