@@ -1,5 +1,7 @@
 add_library(
     sakk
+    logic/stack/src/stack.c
+    logic/stack/src/stack.h
     logic/src/logic.c
     logic/src/logic.h
     graphics/src/graphics.c

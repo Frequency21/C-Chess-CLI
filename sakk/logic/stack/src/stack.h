@@ -1,18 +1,35 @@
 #ifndef STACK_H
 #define STACK_H
-
-#define EMPTY_STACK -1
 #define ROOT NULL
+#define EMPTY_STACK empty_stack
 
-struct StackNode {
-    short data;
+typedef struct Data {
+    // honnan, hová léptünk
+    short from_to;
+    // which figure was taken
+    int figure;
+    // ordinary move or
+    // castle (white, black, queen/king-side)
+    int flag : 3;
+} Data;
+
+typedef struct StackNode {
+    Data data;
     struct StackNode* next;
-};
+} StackNode;
 
-struct StackNode* newNode(short data);
-int isEmpty(struct StackNode* root);
-void push(struct StackNode** root, short data);
-short pop(struct StackNode** root);
-short peek(struct StackNode* root);
-void destroy_stack (struct StackNode** root);
+extern const Data empty_stack;
+
+#define            ORDINARY 0
+#define  W_KING_SIDE_CASTLE 1
+#define W_QUEEN_SIDE_CASTLE 2
+#define  W_KING_SIDE_CASTLE 3
+#define W_QUEEN_SIDE_CASTLE 4
+
+StackNode* newNode(Data data);
+int isEmpty(StackNode* root);
+void push(StackNode** root, Data data);
+Data pop(StackNode** root);
+Data peek(StackNode* root);
+void destroy_stack (StackNode** root);
 #endif
