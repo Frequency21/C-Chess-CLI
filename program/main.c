@@ -6,6 +6,8 @@
 #include<graphics.h>
 #include<logic.h>
 
+char * user_input (int length);
+
 int main(int argc, char const *argv[])
 {
     setlocale(LC_CTYPE, "");
@@ -30,8 +32,12 @@ int main(int argc, char const *argv[])
         case ERR_WRONG_MOVE:
             wprintf(L"Illegal, or non-sense move.\n");
             break;
+        case ERR_CANT_CASTLE:
+            wprintf(L"Can't castle.\n");
+            break;
         case RESIGN:
             wprintf(L"Your opponent resigned. You win!\n");
+            destroy_table ();
             return 0;
             break;
         case MOVED_BACK:
@@ -40,30 +46,62 @@ int main(int argc, char const *argv[])
         case NO_MORE_PREV_MOVES:
             wprintf(L"There are no more previous moves.\n");
             break;
+        case EXIT:
+            wprintf(L"\n");
+            destroy_table();
+            return 0;
+            break;
         default:
             break;
         }
         wprintf(L"%s to move: ", white_move ? "White" : "Black");
-        if (fgets(cmd, 10, stdin) != NULL) {
-            int length = strlen(cmd);
-            if (length > 0 && cmd[length-1] != '\n') {
-                int c;
-                while ((c = getchar())!= '\n' && c != EOF)
-                    ;
-            }
-            status = move(cmd, 10);
-        } else {  // EOF, vagy error
-            return 1;
+
+        char * cmd = user_input(10);
+        status = move(cmd);
+
+        if (status == PROMOTION) {
+            char * choice;
+            do {
+                wprintf(L"\nYour pawn is about to promote, choose a figure (queen/rook/bishop/knight): ");
+                choice = user_input (8);
+                // fgets(choice, 8, stdin);
+                // if(strchr(choice, '\n') == NULL)
+                //     scanf("%*[^\n]"),scanf("%*c");
+                // if (feof(stdin))
+                //     clearerr(stdin);
+                if (memcmp(choice, "queen\n", 6)  == 0) {
+                    promotion(PROMOTE_TO_QUEEN);
+                    break;
+                }
+                if (memcmp(choice, "rook\n", 5)   == 0) {
+                    promotion(PROMOTE_TO_ROOK);
+                    break;
+                }
+                if (memcmp(choice, "bishop\n", 7) == 0) {
+                    promotion(PROMOTE_TO_BISHOP);
+                    break;
+                }
+                if (memcmp(choice, "knight\n", 7) == 0) {
+                    promotion(PROMOTE_TO_KNIGHT);
+                    break;
+                }
+            } while (1);
         }
+
         system("clear");
     } while (1);
-    // char text[3] = "c4";
-    // char oszlop;
-    // char sor;
-
-    // wprintf(L"size of '%s' is = %d\n", text, strlen(text));
-    
-
-    destroy_table();
     return 0;
+}
+
+char * user_input (int length) {
+    char *flag, *result = (char*) malloc (sizeof(char) * length);
+    do {
+    flag = fgets(result, 10, stdin);
+            if(strchr(result, '\n') == NULL)
+                scanf("%*[^\n]"),scanf("%*c");
+            if (feof(stdin))
+                clearerr(stdin);
+    } while (flag == NULL);
+
+    return result;
 }

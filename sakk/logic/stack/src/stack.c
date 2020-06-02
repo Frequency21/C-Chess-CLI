@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "stack.h"
 
+/* A simple stack implementation
+ * to store player moves.
+ */
+
 const Data empty_stack = {.from_to = -1, .figure = -1, .flag = 0};
 
 StackNode* newNode(Data data) {
@@ -19,7 +23,6 @@ void push(StackNode** root, Data data) {
     StackNode* stackNode = newNode(data);
     stackNode->next = *root;
     *root = stackNode;
-    // printf("{%d, %d} pushed to stack\n", data.from_to, data.figure);
 }
 
 Data pop(StackNode** root) {
@@ -46,23 +49,3 @@ void destroy_stack (StackNode** root) {
     } while (result.from_to != empty_stack.from_to &&
              result.figure != empty_stack.figure );
 }
-
-// StackNode* root = ROOT;
-
-// Data data1 = {.from_to = 10, .figure = 10};
-// Data data2 = {.from_to = 20, .figure = 20};
-// Data data3 = {.from_to = 30, .figure = 30};
-
-// push(&root, data1);
-// push(&root, data2);
-// push(&root, data3);
-
-// Data popped = pop(&root);
-
-// printf("%d popped from stack\n", popped.figure);
-
-// Data peeked = peek(root);
-
-// printf("Top element is %d\n", peeked.figure);
-// destroy_stack(&root);
-// return 0;
