@@ -12,16 +12,18 @@ static int move_back (char * cmd);
 _Bool white_move;
 #define             RESIGN 0
 #define               EXIT 1
-#define               DRAW 2
-#define               MOVE 3
-#define         MOVED_BACK 4
-#define          PROMOTION 5
-#define NO_MORE_PREV_MOVES 6
-#define     ERR_BLACK_TURN 7
-#define     ERR_WHITE_TURN 8
-#define    ERR_WRONG_INPUT 9
-#define     ERR_WRONG_MOVE 10
-#define    ERR_CANT_CASTLE 11
+#define       DRAW_OFFERED 2
+#define      DRAW_ACCEPTED 3
+#define      DRAW_DECLINED 4
+#define               MOVE 5
+#define         MOVED_BACK 6
+#define          PROMOTION 7
+#define NO_MORE_PREV_MOVES 8
+#define     ERR_BLACK_TURN 9
+#define     ERR_WHITE_TURN 10
+#define    ERR_WRONG_INPUT 11
+#define     ERR_WRONG_MOVE 12
+#define    ERR_CANT_CASTLE 13
 
 void promotion (int figure);
 #define PROMOTE_TO_QUEEN  0

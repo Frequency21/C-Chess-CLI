@@ -7,11 +7,12 @@
 
 #define RESIGN_CMD "resign\n"
 #define DRAW_CMD "draw\n"
+#define DRAW_ACCEPT_CMD "accept\n"
 #define MOVE_BACK_CMD "move back\n"
 #define TABLE(i,j) table[i][j]
 
 static StackNode * root = ROOT;
-static int handle_castle (int from_row, int from_col, int to_row, int to_col, int figure_in_move, Data move_d);
+static int handle_castle (int from_row, int from_col, int to_row, int to_col, int figure_in_move, Data * move_d);
 
 void init_table () {
     table = (int**) malloc (sizeof(int*)*8);
@@ -45,12 +46,25 @@ void init_table () {
 }
 
 int move (char * cmd) {
+
+    static bool draw_offered = false;
+
     if (memcmp(cmd, "exit\n", 5) == 0)
         return EXIT;
     if (memcmp(cmd, RESIGN_CMD, 7) == 0)
         return RESIGN;
-    if (memcmp(cmd, DRAW_CMD, 5) == 0)
-        return DRAW;
+    if (draw_offered) {
+        if (memcmp(cmd, DRAW_ACCEPT_CMD, 7) == 0)
+            return DRAW_ACCEPTED;
+        draw_offered = false;
+        white_move = !white_move;
+        return DRAW_DECLINED;
+    }
+    if (memcmp(cmd, DRAW_CMD, 5) == 0) {
+        draw_offered = true;
+        white_move = !white_move;
+        return DRAW_OFFERED;
+    }
     if (memcmp(cmd, MOVE_BACK_CMD, 10) == 0)
         return move_back(cmd);
 
@@ -95,7 +109,7 @@ int move (char * cmd) {
                 return PROMOTION;
             }
             // handle castle
-            if (handle_castle(from_row_index, from_col_index, to_row_index, to_col_index, figure_in_move, move_d) == ERR_CANT_CASTLE)
+            if (handle_castle(from_row_index, from_col_index, to_row_index, to_col_index, figure_in_move, &move_d) == ERR_CANT_CASTLE)
                 return ERR_CANT_CASTLE;
 
             white_move = !white_move;
@@ -106,18 +120,18 @@ int move (char * cmd) {
     return ERR_WRONG_INPUT;
 }
 
-static int handle_castle (int from_row, int from_col, int to_row, int to_col, int figure_in_move, Data move_d) {
+static int handle_castle (int from_row, int from_col, int to_row, int to_col, int figure_in_move, Data * move_d) {
     if (figure_in_move == W_KING && from_row == 0 && from_col == 4 && to_row == 0) {
         if (to_col == 6) {
             if (TABLE(0,5) == EMPTY_SQUARE && TABLE(0,7) == W_ROOK) {
-                move_d.flag = W_KING_SIDE_CASTLE;
+                move_d->flag = W_KING_SIDE_CASTLE;
                 TABLE(0,5) = W_ROOK;
                 TABLE(0,7) = EMPTY_SQUARE;
             } else
                 return ERR_CANT_CASTLE;
         } else if (to_col == 2) {
             if (TABLE(0,3) == EMPTY_SQUARE && TABLE(0,0) == W_ROOK) {
-                move_d.flag = W_QUEEN_SIDE_CASTLE;
+                move_d->flag = W_QUEEN_SIDE_CASTLE;
                 TABLE(0,0) = EMPTY_SQUARE;
                 TABLE(0,3) = W_ROOK;
             } else
@@ -126,14 +140,14 @@ static int handle_castle (int from_row, int from_col, int to_row, int to_col, in
     } else if (figure_in_move == B_KING && from_row == 7 && from_col == 4 && to_row == 7) {
         if (to_col == 6) {
             if (TABLE(7,5) == EMPTY_SQUARE && TABLE(7,7) == B_ROOK) {
-                move_d.flag = B_KING_SIDE_CASTLE;
+                move_d->flag = B_KING_SIDE_CASTLE;
                 TABLE(7,5) = B_ROOK;
                 TABLE(7,7) = EMPTY_SQUARE;
             } else
                 return ERR_CANT_CASTLE;
         } else if (to_col == 2) {
             if (TABLE(7,3) == EMPTY_SQUARE && TABLE(7,0) == B_ROOK) {
-                move_d.flag = B_QUEEN_SIDE_CASTLE;
+                move_d->flag = B_QUEEN_SIDE_CASTLE;
                 TABLE(7,0) = EMPTY_SQUARE;
                 TABLE(7,3) = B_ROOK;
             } else
@@ -190,7 +204,7 @@ static int move_back (char * cmd) {
     int from_row = from / 10 - 1, from_col = from % 10 - 1,
           to_row =   to / 10 - 1,   to_col =   to % 10 - 1;
     int attacked_figure = last_move.figure,
-                 figure = last_move.flag == PROMOTE ? (white_move ? W_PAWN : B_PAWN) : TABLE(to_row, to_col);
+                 figure = last_move.flag == PROMOTE ? (white_move ? B_PAWN : W_PAWN) : TABLE(to_row, to_col);
     TABLE(from_row, from_col) = figure;
     TABLE(  to_row,   to_col) = attacked_figure;
 

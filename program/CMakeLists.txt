@@ -1,26 +1,41 @@
-# if($<CONFIG:DEBUG>)
-#     MESSAGE("Adding Debug flag...")
-#     MESSAGE("Build type is " ${CMAKE_BUILD_TYPE})
-# endif($<CONFIG:DEBUG>)
-
-# MESSAGE("Adding Debug flag...")
-# MESSAGE("Build type is " ${CMAKE_BUILD_TYPE})
-
 add_executable(sakk-exe main.c)
-
-IF(CMAKE_BUILD_TYPE MATCHES Debug)
-    message("debug mode")
-ENDIF(CMAKE_BUILD_TYPE MATCHES Debug)
 
 target_link_libraries(sakk-exe PRIVATE sakk)
 
-add_custom_target(test
-    COMMAND bash -c "./sakk-exe < input.txt > output.txt"
-    COMMENT "Creating output.txt in ${CMAKE_CURRENT_SOURCE_DIR} (integrity test)"
+# Robert James Fischer vs Lev Polugaevsky
+# Palma de Mallorca Interzonal (1970), Palma de Mallorca ESP, rd 11, Nov-23 
+# English Opening: Anglo-Indian Defense. Mikenas-Carls Variation (A15)
+
+add_custom_target(integrity-test-Fischer
+    DEPENDS sakk-exe
+    COMMAND bash -c "./sakk-exe < ${CMAKE_SOURCE_DIR}/testing/integrity/Fischer-game.txt > ${CMAKE_SOURCE_DIR}/testing/integrity/Fischer-game-output.txt"
+    COMMENT "Creating Fischer-game-output.txt in ${CMAKE_SOURCE_DIR}/testing/integrity (integrity test)"
     VERBATIM
 )
 
-add_custom_command(TARGET sakk-exe
-                   POST_BUILD
-                   COMMAND bash -c "echo \"hello\""
-                   VERBATIM)
+add_custom_target(integrity-test-castle
+    DEPENDS sakk-exe
+    COMMAND bash -c "./sakk-exe < ${CMAKE_SOURCE_DIR}/testing/integrity/castle.txt > ${CMAKE_SOURCE_DIR}/testing/integrity/castle-output.txt"
+    COMMENT "Creating castle-output.txt in ${CMAKE_SOURCE_DIR}/testing/integrity (integrity test)"
+    VERBATIM
+)
+
+add_custom_target(integrity-test-promotion
+    DEPENDS sakk-exe
+    COMMAND bash -c "./sakk-exe < ${CMAKE_SOURCE_DIR}/testing/integrity/promotion.txt > ${CMAKE_SOURCE_DIR}/testing/integrity/promotion-output.txt"
+    COMMENT "Creating promotion-output.txt in ${CMAKE_SOURCE_DIR}/testing/integrity (integrity test)"
+    VERBATIM
+)
+
+# add_custom_command(TARGET integrity-test-Fischer
+#                    POST_BUILD
+#                    command bash -c "cat ${CMAKE_SOURCE_DIR}/testing/integrity/Fishcer-game-output.txt"
+#                    VERBATIM
+# )
+
+# add_custom_command(TARGET integrity-test-Fischer
+#                    POST_BUILD
+#                    command bash -c "cat ${CMAKE_SOURCE_DIR}/testing/integrity/Fishcer-game-output.txt"
+#                    VERBATIM
+
+

@@ -1,5 +1,5 @@
-#include "../sakk/logic/src/logic.h"  // figures
-#include "../sakk/logic/stack/src/stack.h"
+#include "../../sakk/logic/src/logic.h"  // figures
+#include "../../sakk/logic/stack/src/stack.h"
 #include "utest-stack.h"
 
 #include <CUnit/CUnit.h>

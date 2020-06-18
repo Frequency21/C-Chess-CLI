@@ -7,6 +7,7 @@
 #include<logic.h>
 
 char * user_input (int length);
+void print_commands ();
 
 int main(int argc, char const *argv[])
 {
@@ -17,7 +18,6 @@ int main(int argc, char const *argv[])
     init_table();
 
     int status = MOVE;
-    char cmd [9];
     do {
     #ifndef NDEBUG
         wprintf(L"\n");
@@ -25,6 +25,17 @@ int main(int argc, char const *argv[])
         print_table();
         switch (status)
         {
+        case DRAW_OFFERED:
+            wprintf(L"Your opponent offered a draw, do you accept it?\n"
+                     "(type \"accept\" to accept, or anything else to decline it.)\n");
+            break;
+        case DRAW_ACCEPTED:
+            wprintf(L"Draw by agreement.\n");
+            destroy_table();
+            return 0;
+        case DRAW_DECLINED:
+            wprintf(L"Draw was refused. Let's play on.\n");
+            break;
         case ERR_BLACK_TURN:
             wprintf(L"Choose a black piece.\n");
             break;
@@ -32,7 +43,7 @@ int main(int argc, char const *argv[])
             wprintf(L"Choose a white piece.\n");
             break;
         case ERR_WRONG_INPUT:
-            wprintf(L"Wrong input.\n");
+            wprintf(L"Wrong input, type \"\033[1;31mhelp\033[0m\" to display possible commands.\n");
             break;
         case ERR_WRONG_MOVE:
             wprintf(L"Illegal, or non-sense move.\n");
@@ -44,7 +55,6 @@ int main(int argc, char const *argv[])
             wprintf(L"Your opponent resigned. You win!\n");
             destroy_table ();
             return 0;
-            break;
         case MOVED_BACK:
             wprintf(L"Last move is taken back.\n");
             break;
@@ -55,7 +65,6 @@ int main(int argc, char const *argv[])
             wprintf(L"\n");
             destroy_table();
             return 0;
-            break;
         default:
             break;
         }
@@ -63,6 +72,9 @@ int main(int argc, char const *argv[])
 
         char * cmd = user_input(11);
         status = move(cmd);
+        // handle "help"
+        if (memcmp(cmd, "help\n", 5) == 0)
+            print_commands ();
         free(cmd);
 
         if (status == PROMOTION) {
@@ -98,6 +110,7 @@ int main(int argc, char const *argv[])
 
 char * user_input (int length) {
     char *flag, *result = (char*) malloc (sizeof(char) * (length + 2)); // length doesn't contain '\n' and '\0'
+    memset(result, L'\0', length+2);
     do {
     flag = fgets(result, length + 2, stdin);
             if(strchr(result, '\n') == NULL)
@@ -107,4 +120,19 @@ char * user_input (int length) {
     } while (flag == NULL);
 
     return result;
+}
+
+#define SEP "\t--\t"
+
+void print_commands () {
+    system("clear");
+    wprintf(
+L"Possible commands are:\n\n\
+    [a-h][1-8] [a-h][1-8] --  move pieces.\n\
+    draw                  --  offer draw.\n\
+    resign                --  resign.\n\
+    move back             --  take one move back.\n\
+    exit                  --  exit the game.\n");
+    wprintf(L"\nPress enter to move on.");
+    getchar();
 }

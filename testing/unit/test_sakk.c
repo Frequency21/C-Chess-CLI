@@ -1,9 +1,9 @@
 #include "CUnit/Basic.h" 
 #include <CUnit/CUnit.h>
 
-#include "../sakk/graphics/src/graphics.h"
-#include "../sakk/logic/src/logic.h"
-#include "../sakk/logic/stack/src/stack.h"
+// #include "../../sakk/graphics/src/graphics.h"
+// #include "../../sakk/logic/src/logic.h"
+// #include "../../sakk/logic/stack/src/stack.h"
 
 #include "utest-logic.h"
 #include "utest-stack.h"
