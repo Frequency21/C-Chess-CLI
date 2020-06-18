@@ -10,4 +10,4 @@ add_library(
 
 target_include_directories(sakk PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/graphics/src/")
 target_include_directories(sakk PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/logic/src/")
-target_include_directories(sakk PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/logic/stack/src/")
+target_include_directories(sakk PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/logic/stack/src/")

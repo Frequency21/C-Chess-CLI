@@ -2,8 +2,10 @@
 
 Fordítás és futtatás:
 
+Debug módban (integritás tesztekhez)
+
 ```sh
-cmake -H. -Bbuild
+cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Debug
 make -C build
-./build/sakk-exe/sakk
+./build/program/sakk-exe
 ```

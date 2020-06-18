@@ -7,7 +7,7 @@ typedef struct Data {
     // piece starting and destination square
     // where (a->'1', ... h->'7'), so
     // a move like c2 to f5 is encoded to 3255.
-    short from_to;
+    unsigned int from_to : 14;
     // which figure was taken
     int figure;
     // ordinary move or

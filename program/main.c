@@ -11,12 +11,17 @@ char * user_input (int length);
 int main(int argc, char const *argv[])
 {
     setlocale(LC_CTYPE, "");
+#ifdef NDEBUG
     system("clear");
+#endif
     init_table();
 
     int status = MOVE;
-    char cmd [10];
+    char cmd [9];
     do {
+    #ifndef NDEBUG
+        wprintf(L"\n");
+    #endif
         print_table();
         switch (status)
         {
@@ -56,19 +61,15 @@ int main(int argc, char const *argv[])
         }
         wprintf(L"%s to move: ", white_move ? "White" : "Black");
 
-        char * cmd = user_input(10);
+        char * cmd = user_input(11);
         status = move(cmd);
+        free(cmd);
 
         if (status == PROMOTION) {
             char * choice;
             do {
                 wprintf(L"\nYour pawn is about to promote, choose a figure (queen/rook/bishop/knight): ");
-                choice = user_input (8);
-                // fgets(choice, 8, stdin);
-                // if(strchr(choice, '\n') == NULL)
-                //     scanf("%*[^\n]"),scanf("%*c");
-                // if (feof(stdin))
-                //     clearerr(stdin);
+                choice = user_input (7);
                 if (memcmp(choice, "queen\n", 6)  == 0) {
                     promotion(PROMOTE_TO_QUEEN);
                     break;
@@ -86,17 +87,19 @@ int main(int argc, char const *argv[])
                     break;
                 }
             } while (1);
+            free(choice);
         }
-
+    #ifdef NDEBUG
         system("clear");
+    #endif
     } while (1);
     return 0;
 }
 
 char * user_input (int length) {
-    char *flag, *result = (char*) malloc (sizeof(char) * length);
+    char *flag, *result = (char*) malloc (sizeof(char) * (length + 2)); // length doesn't contain '\n' and '\0'
     do {
-    flag = fgets(result, 10, stdin);
+    flag = fgets(result, length + 2, stdin);
             if(strchr(result, '\n') == NULL)
                 scanf("%*[^\n]"),scanf("%*c");
             if (feof(stdin))

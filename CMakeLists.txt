@@ -3,3 +3,4 @@ project(Progalap-sakk VERSION 1.0.0)
 
 add_subdirectory(sakk)
 add_subdirectory(program)
+add_subdirectory(testing)
