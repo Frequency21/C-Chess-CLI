@@ -109,8 +109,12 @@ int move (char * cmd) {
                 return PROMOTION;
             }
             // handle castle
-            if (handle_castle(from_row_index, from_col_index, to_row_index, to_col_index, figure_in_move, &move_d) == ERR_CANT_CASTLE)
+            if (handle_castle(from_row_index, from_col_index, to_row_index, to_col_index, figure_in_move, &move_d) == ERR_CANT_CASTLE) {
+                // take back the king and the attacked figure..
+                TABLE(from_row_index, from_col_index) = figure_in_move;
+                TABLE(  to_row_index,   to_col_index) = figure_attacked;
                 return ERR_CANT_CASTLE;
+            }
 
             white_move = !white_move;
             push(&root, move_d);

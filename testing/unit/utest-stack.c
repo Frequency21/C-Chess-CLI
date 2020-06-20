@@ -28,10 +28,7 @@ static void test_stack_push_pop () {
     CU_ASSERT_PTR_NULL(root);
 }
 
-static void test_stack_destroy () {}
-
 CU_TestInfo stack_tests[] = {
     {"push pop",    test_stack_push_pop},
-    // {"destroy",     test_stack_destroy},
     CU_TEST_INFO_NULL
 };

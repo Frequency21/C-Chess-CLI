@@ -98,6 +98,7 @@ int main(int argc, char const *argv[])
                     promotion(PROMOTE_TO_KNIGHT);
                     break;
                 }
+                free(choice);
             } while (1);
             free(choice);
         }
@@ -110,7 +111,7 @@ int main(int argc, char const *argv[])
 
 char * user_input (int length) {
     char *flag, *result = (char*) malloc (sizeof(char) * (length + 2)); // length doesn't contain '\n' and '\0'
-    memset(result, L'\0', length+2);
+    memset(result, '\0', length+2);
     do {
     flag = fgets(result, length + 2, stdin);
             if(strchr(result, '\n') == NULL)
@@ -122,12 +123,10 @@ char * user_input (int length) {
     return result;
 }
 
-#define SEP "\t--\t"
-
 void print_commands () {
     system("clear");
-    wprintf(
-L"Possible commands are:\n\n\
+    wprintf(L\
+"Possible commands are:\n\n\
     [a-h][1-8] [a-h][1-8] --  move pieces.\n\
     draw                  --  offer draw.\n\
     resign                --  resign.\n\

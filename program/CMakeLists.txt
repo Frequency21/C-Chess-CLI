@@ -26,16 +26,3 @@ add_custom_target(integrity-test-promotion
     COMMENT "Creating promotion-output.txt in ${CMAKE_SOURCE_DIR}/testing/integrity (integrity test)"
     VERBATIM
 )
-
-# add_custom_command(TARGET integrity-test-Fischer
-#                    POST_BUILD
-#                    command bash -c "cat ${CMAKE_SOURCE_DIR}/testing/integrity/Fishcer-game-output.txt"
-#                    VERBATIM
-# )
-
-# add_custom_command(TARGET integrity-test-Fischer
-#                    POST_BUILD
-#                    command bash -c "cat ${CMAKE_SOURCE_DIR}/testing/integrity/Fishcer-game-output.txt"
-#                    VERBATIM
-
-
