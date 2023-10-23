@@ -1,10 +1,10 @@
-#include "utest-logic.h"
+#include "chess.spec.h"
 
 #include <CUnit/CUnit.h>
 #include <stdbool.h>
 
-#include "../../sakk/logic/src/logic.h"  // figures
-#include "../../sakk/logic/stack/src/stack.h"
+#include "../../chess/chess.h"  // figures
+#include "../../chess/stack/stack.h"
 
 static void test_wrong_inp() {
     CU_ASSERT_EQUAL(move("`1 a1"), ERR_WRONG_INPUT);

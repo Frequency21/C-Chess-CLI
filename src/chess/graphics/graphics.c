@@ -11,10 +11,6 @@
 
 int** table;
 
-void print_figures(double num) {
-    for (wchar_t i = 0x2654; i <= 0x265F; i++) wprintf(L"%lc\n", i);
-}
-
 void print_table() {
     int spaces = 4;
 

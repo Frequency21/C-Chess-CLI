@@ -1,5 +1,5 @@
-#ifndef LOGIC_H
-#define LOGIC_H
+#ifndef CHESS_H
+#define CHESS_H
 
 enum figures {
     EMPTY_SQUARE = L' ',

@@ -1,10 +1,11 @@
-#include <graphics.h>
 #include <locale.h>
-#include <logic.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <wchar.h>
+
+#include <graphics.h>
+#include <chess.h>
 
 char *user_input(int length);
 void print_commands();

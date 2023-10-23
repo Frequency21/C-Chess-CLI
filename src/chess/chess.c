@@ -1,11 +1,11 @@
-#include "logic.h"
+#include "chess.h"
 
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "../stack/src/stack.h"
+#include "stack/stack.h"
 
 #define RESIGN_CMD "resign\n"
 #define DRAW_CMD "draw\n"

@@ -1,9 +1,9 @@
-#include "utest-stack.h"
+#include "stack.spec.h"
 
 #include <CUnit/CUnit.h>
 
-#include "../../sakk/logic/src/logic.h"  // figures
-#include "../../sakk/logic/stack/src/stack.h"
+#include "../../chess/chess.h"
+#include "../../chess/stack/stack.h"
 
 static void test_stack_push_pop() {
     StackNode* root = ROOT;
