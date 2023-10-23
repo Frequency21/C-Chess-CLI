@@ -5,7 +5,7 @@
 
 extern CU_TestInfo logic_tests[];
 
-void table_setup ();
-void table_teardown ();
+void table_setup();
+void table_teardown();
 
 #endif

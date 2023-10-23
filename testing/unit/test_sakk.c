@@ -1,15 +1,14 @@
-#include "CUnit/Basic.h" 
 #include <CUnit/CUnit.h>
 
+#include "CUnit/Basic.h"
 #include "utest-logic.h"
 #include "utest-stack.h"
- 
+
 CU_SuiteInfo sakk_suites[] = {
-    { "stack", NULL, NULL, NULL, NULL, stack_tests },
-    { "logic", NULL, NULL, table_setup, table_teardown, logic_tests},
-    CU_SUITE_INFO_NULL
-};
- 
+    {"stack", NULL, NULL, NULL, NULL, stack_tests},
+    {"logic", NULL, NULL, table_setup, table_teardown, logic_tests},
+    CU_SUITE_INFO_NULL};
+
 int main() {
     if (CU_initialize_registry() != CUE_SUCCESS) {
         return CU_get_error();
