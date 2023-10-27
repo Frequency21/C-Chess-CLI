@@ -5,16 +5,16 @@ This is a university final project of a C course.
 The main goal is to create a chess CLI program written in C.
 
 The specification is the following.
-- The program must use Makefile or CMake.
+- The program must use Makefile or CMake to build the main program and execute tests.
 - The program must contain a library that supports the main program.
 - The library must:
-  - Initialize the starting position and store it as an intern state.
-  - Move: Modifies the intern state based on the move.
+  - Initialize the starting position and store it as an internal state.
+  - Move: Modifies the internal state based on the move.
     - It isn't needed to check whether the move is regular or not.
     - Move must support capture, castle and promotion.
-  - Undo move: moves must be undoable until the starting position.
+  - Moves must be reversible until the starting position is reached.
 - The main program must implement a chess game with the help of the library.
-  - When reading the input for moves it must print an error in case of 'irregular' moves. Irregular moves are the following:
+  - When reading the input for moves it must print an error in case of 'irregular' moves and prompt the user for another move. Irregular moves are the following:
     - when white tries to move with a black figure or reverse.
     - when there is no figure.
   - It must be possible to:
